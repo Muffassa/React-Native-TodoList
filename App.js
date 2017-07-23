@@ -27,14 +27,24 @@ export default class App extends React.Component {
     this.setState({todos: [...this.state.todos, this.state.text]})
   }
 
+  deleteTodo = deletingTodoIndex => {
+    const todos = this.state.todos.filter((element, index) => index !== deletingTodoIndex );
+    this.setState({todos});
+  }
+
   render() {
     const todoItems = this.state.todos.map((todo, index) => {
       return (
-        <TouchableHighlight key={index} style={styles.todoItem} onPress={this.openTodo}>
-          <Text>
-            {todo}
-          </Text>
-        </TouchableHighlight>
+        <View style={styles.todoItemWrapper} key={index}>
+          <TouchableHighlight style={styles.todoItem} onPress={this.openTodo}>
+              <Text>
+                {todo}
+              </Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.deleteButton} onPress={() => this.deleteTodo(index)}>
+            <Text>Delete</Text>
+          </TouchableHighlight>
+        </View>
       )
     });
 
@@ -77,9 +87,15 @@ const styles = StyleSheet.create({
     })
   },
   todoItem: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  todoItemWrapper: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
     height: 60,
     paddingLeft: 20,
-    justifyContent: 'center',
+    paddingRight: 20,
     marginTop: 2
   },
   todoItemsList: {
@@ -98,5 +114,9 @@ const styles = StyleSheet.create({
   },
   buttonText: {
    color: "#fff"
+  },
+  deleteButton: {
+    justifyContent: 'center',
   }
+
 });

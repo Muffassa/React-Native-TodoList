@@ -22,6 +22,11 @@ export default class App extends React.Component {
     alert('Open Todo');
   }
 
+  saveTodo = () => {
+    this.setState({text: ''});
+    this.setState({todos: [...this.state.todos, this.state.text]})
+  }
+
   render() {
     const todoItems = this.state.todos.map((todo, index) => {
       return (
@@ -40,10 +45,11 @@ export default class App extends React.Component {
           value={this.state.text}
           onChangeText={(text) => this.setState({ text })}
           placeholder={'Write you TODO'}
+          onSubmitEditing={this.saveTodo}
         />
-        <Text>
-          {this.state.text}
-        </Text>
+        <TouchableHighlight style={styles.button} onPress={this.saveTodo}>
+          <Text style={styles.buttonText}>Add</Text>
+        </TouchableHighlight>
         <ScrollView style={styles.todoItemsList}>
           {todoItems}
         </ScrollView>
@@ -78,5 +84,19 @@ const styles = StyleSheet.create({
   },
   todoItemsList: {
     marginTop: 20,
+    marginBottom: 40,
+  },
+  button: {
+   marginTop: 20,
+   justifyContent: 'center',
+   alignItems: 'center',
+   height: 40,
+   backgroundColor: 'green',
+   marginLeft: 20,
+   marginRight: 20,
+   borderRadius: 5,
+  },
+  buttonText: {
+   color: "#fff"
   }
 });

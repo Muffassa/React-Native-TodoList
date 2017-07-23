@@ -8,18 +8,17 @@ import {
 } from 'react-native';
 
 import TextForm from './components/TextForm';
+import TodoItem from './components/TodoItem';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
       todos: ['Todo1', 'Todo2', 'Todo3', 'Todo4', 'Todo5']
     };
   }
 
   openTodo = () => {    this.setState({text: ''});
-
     alert('Open Todo');
   }
 
@@ -35,16 +34,7 @@ export default class App extends React.Component {
   render() {
     const todoItems = this.state.todos.map((todo, index) => {
       return (
-        <View style={styles.todoItemWrapper} key={index}>
-          <TouchableHighlight style={styles.todoItem} onPress={this.openTodo}>
-              <Text>
-                {todo}
-              </Text>
-          </TouchableHighlight>
-          <TouchableHighlight style={styles.deleteButton} onPress={() => this.deleteTodo(index)}>
-            <Text>Delete</Text>
-          </TouchableHighlight>
-        </View>
+        <TodoItem key={index} todo={todo} onEdit={this.openTodo} onDelete={() => this.deleteTodo(index)}/>
       )
     });
 
@@ -66,20 +56,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  todoItem: {
-    flex: 1,
-    justifyContent: 'center'
-  },
-  todoItemWrapper: {
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    height: 60,
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginTop: 2
-  },
   todoItemsList: {
     marginTop: 20,
     marginBottom: 40,
-  }
+  },
 });

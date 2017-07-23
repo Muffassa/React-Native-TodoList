@@ -11,7 +11,17 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <TextInput style={styles.textInput} value={this.state.text}/>
+      <View>
+        <TextInput
+          style={styles.textInput}
+          value={this.state.text}
+          onChangeText={(text) => this.setState({text})}
+          placeholder={'Write you TODO'}
+        />
+        <Text>
+          {this.state.text}
+        </Text>
+      </View>
     );
   }
 }

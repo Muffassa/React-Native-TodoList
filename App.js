@@ -1,13 +1,13 @@
 import React from 'react';
 import {
   StyleSheet,
-  Platform,
   Text,
-  TextInput,
   View,
   ScrollView,
   TouchableHighlight
 } from 'react-native';
+
+import TextForm from './components/TextForm';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -18,13 +18,13 @@ export default class App extends React.Component {
     };
   }
 
-  openTodo = () => {
+  openTodo = () => {    this.setState({text: ''});
+
     alert('Open Todo');
   }
 
-  saveTodo = () => {
-    this.setState({text: ''});
-    this.setState({todos: [...this.state.todos, this.state.text]})
+  saveTodo = (todo) => {
+    this.setState({todos: [...this.state.todos, todo]})
   }
 
   deleteTodo = deletingTodoIndex => {
@@ -50,16 +50,7 @@ export default class App extends React.Component {
 
     return (
       <View>
-        <TextInput
-          style={styles.textInput}
-          value={this.state.text}
-          onChangeText={(text) => this.setState({ text })}
-          placeholder={'Write you TODO'}
-          onSubmitEditing={this.saveTodo}
-        />
-        <TouchableHighlight style={styles.button} onPress={this.saveTodo}>
-          <Text style={styles.buttonText}>Add</Text>
-        </TouchableHighlight>
+         <TextForm onSubmit={this.saveTodo}/>
         <ScrollView style={styles.todoItemsList}>
           {todoItems}
         </ScrollView>
@@ -74,17 +65,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  textInput: {
-    height: 40,
-    marginTop: 50,
-    paddingLeft: 10,
-    ...Platform.select({
-      ios: {
-        borderColor: 'gray',
-        borderWidth: 1
-      },
-    })
   },
   todoItem: {
     flex: 1,
@@ -101,22 +81,5 @@ const styles = StyleSheet.create({
   todoItemsList: {
     marginTop: 20,
     marginBottom: 40,
-  },
-  button: {
-   marginTop: 20,
-   justifyContent: 'center',
-   alignItems: 'center',
-   height: 40,
-   backgroundColor: 'green',
-   marginLeft: 20,
-   marginRight: 20,
-   borderRadius: 5,
-  },
-  buttonText: {
-   color: "#fff"
-  },
-  deleteButton: {
-    justifyContent: 'center',
   }
-
 });

@@ -10,8 +10,8 @@ export default class App extends React.Component {
     return (
       <Router>
         <Scene key='root'>
-          <Scene key='authorisation' component={Authorisation} initial/>
-          <Scene key='todolist' component={TodoList}/>
+          <Scene key='authorisation' component={Authorisation} />
+          <Scene key='todolist' component={TodoList} initial/>
         </Scene>
       </Router>
     );
